@@ -1,0 +1,74 @@
+= CDI Building Blocks Lab Kit
+// Settings
+ifdef::env-github,env-browser[]
+:toc: preamble
+:toclevels: 1
+endif::[]
+ifdef::env-github[]
+:!toc-title:
+endif::[]
+// URIs
+:uri-arquillian: http://arquillian.org
+:uri-cdi: http://www.cdi-spec.org
+:uri-tomee: http://tomee.apache.org
+
+This lab kit uses {uri-arquillian}[Arquillian] as a learning device to study how {uri-cdi}[CDI] (Context and Dependency Injection for Java EE) works.
+Arquillian executes each test case inside a real container (in our case, {uri-tomee}[Apache TomEE]).
+You define the deployment archive in the test class, so you have full control over the scenario you want to test (or break).
+This is where theory turns into practice.
+
+== Motivation
+
+Arquillian is ideal for this phase of learning because it provides a tight loop of experimentation.
+It allowing you to focus on how components are defined, resolved, and executed without having to mess around with (or messing up) the details of creating and deploying an application.
+You can start at any point in your application and study how the components are managed and how they interact.
+
+This setup also allows you to set a breakpoint anywhere in the source and unleash the debugger on that line when the tests run.
+As a bonus, you can even poke around inside the container.
+
+Follow the rules to discover what works.
+Break the rules to discover what doesn't work (or works when you don't expect it to).
+*Don't be afraid to experiment!*
+
+Using this approach, you'll be able to quickly become familiar with CDI, what works, what doesn't work, and be ready to start putting it into practice.
+
+== Overview
+
+This kit provides a single web application (war) project with both a Maven and a Gradle build.
+To start, it contains two Java classes:
+
+- LiveAndLetDie.java -- A Java class destined to become a CDI bean.
+- CDIBeanTest.java -- An Arquillian test class prepared to detect the presence of the CDI bean.
+
+Where it goes from there is up to you.
+
+== Usage
+
+=== Importing the Project into an IDE
+
+We recommend that you important the Maven or Gradle project into your IDE.
+You'll unlock the most functionality by importing the Maven project since it provides access to profiles that can be used to run the test on different containers.
+
+Once the project is imported, you can navigate to the test class, CDIBeanTest, and run it just like you would any JUnit test.
+Of course, the test will fail because the Java class hasn't yet been declared as a CDI bean.
+That's an exercise for you to correct.
+
+=== Running the Tests using Maven
+
+To run the tests on TomEE (embedded mode) using Maven, simply run:
+
+ $ mvn test
+
+To run the tests on TomEE (remote mode) using Maven, simply run:
+
+ $ mvn test -Parquillian-tomee-remote
+
+=== Running the Tests using Gradle
+
+To run the tests on TomEE (embedded mode) using Gradle, simply run:
+
+ $ ./gradlew test
+
+== Exercises
+
+TODO

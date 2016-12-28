@@ -1,0 +1,40 @@
+apply plugin: 'war'
+
+group = 'com.tomitribe.training'
+// NOTE The name of the artifact is defined in settings.gradle
+version = '1.0.0-SNAPSHOT'
+
+description = "The lab kit for the CDI Building Blocks training module"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  providedCompile 'org.apache.tomee:javaee-api:7.0-1'
+  testCompile 'junit:junit:4.12'
+  testCompile 'org.jboss.arquillian.junit:arquillian-junit-container:1.1.11.Final'
+  testRuntime 'org.apache.tomee:arquillian-tomee-embedded:7.0.2'
+  // TIP To use the TomEE remote adapter:
+  // - enable all remaining dependencies in place of the previous one
+  // - change the arquillian.launch system property in the test task to "tomee.remote"
+  //testRuntime 'org.apache.tomee:arquillian-tomee-remote:7.0.2'
+  //testRuntime 'org.apache.geronimo.specs:geronimo-osgi-locator:1.1'
+  //testRuntime 'org.apache.cxf:cxf-rt-rs-client:3.1.8'
+  //testRuntime 'org.apache.johnzon:johnzon-jaxrs:0.9.5'
+}
+
+test {
+  // TIP Enable dependency on cleanTest to force tests to rerun each time
+  dependsOn 'cleanTest'
+  systemProperties = [
+    'arquillian.launch': 'tomee.embedded'
+    //'arquillian.launch': 'tomee.remote'
+  ]
+  testLogging {
+    events "passed", "skipped", "failed", "standardOut", "standardError"
+  }
+}
